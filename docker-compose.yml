@@ -1,0 +1,25 @@
+version: "3"
+services:
+        login-app:
+            container_name: timebanking_app_compose
+            image: timebanking_app
+            restart: always
+            build: .
+            ports:
+              - "4545:8080"
+            links:
+              - mongo
+        mongo:
+              container_name: mongo
+              image: mongo
+              volumes:
+                - ./data:/data/db
+              ports:
+                - '27018:27017'
+        cliente:
+              container_name: frontend
+              image: joelalca98/frontend
+	      restart: always
+	      build: .
+              ports:
+                - "80:80"
